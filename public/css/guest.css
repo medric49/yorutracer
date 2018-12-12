@@ -1,0 +1,29 @@
+#navbar {
+    z-index: 1000;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+    background-color: white;
+    height: 50px;
+}
+
+#icon {
+    width: 30px;
+    height: 30px;
+}
+
+header.container-fluid {
+    margin-top: 50px;
+    height: 10rem;
+    margin-bottom: 20px;
+
+    background:url("/img/production.jpg") ;
+    font-size: 3rem;
+    background-size: cover;
+    color: white;
+}
+header.container-fluid .row {
+    background-color: rgba(0, 0, 0, 0.71);
+}

@@ -1,0 +1,29 @@
+@mixin link($color) {
+  color: $color;
+  text-decoration: none !important;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+@mixin link-hover($color) {
+  color: $color;
+}
+
+.link-blue {
+  @include link($blue-color)
+}
+
+.link-orange {
+  @include link($orange-color)
+}
+
+.link-blue:hover {
+  @include link-hover($hard-blue-color);
+}
+
+.link-orange:hover {
+  @include link-hover($hard-orange-color);
+}

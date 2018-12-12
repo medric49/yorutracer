@@ -1,0 +1,77 @@
+.btn {
+  font-size: 0.8rem;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+@mixin btn-outline-mixin($color,$soft-color) {
+  font-weight: bold;
+  border-radius: 30px;
+  color: $color;
+  border: 1px solid $color;
+  background-color: $soft-color;
+}
+
+@mixin btn-outline-hover-mixin($color,$background-color) {
+  color: $color;
+  background-color: $background-color;
+  border: 1px solid $background-color;
+}
+
+.btn-outline-orange {
+  @include btn-outline-mixin($orange-color,$soft-orange-color);
+}
+.btn-outline-orange:hover {
+  @include btn-outline-hover-mixin(white,$orange-color);
+}
+
+.btn-outline-blue {
+  @include btn-outline-mixin($blue-color,$soft-blue-color);
+}
+.btn-outline-blue:hover {
+  @include btn-outline-hover-mixin(white,$blue-color);
+}
+.btn-outline-white{
+  @include btn-outline-mixin($white-color,$soft-white-color);
+}
+.btn-outline-white:hover{
+  @include btn-outline-hover-mixin(rgba(0, 0, 0, 0.7),$white-color);
+}
+
+@mixin btn-mixin($color) {
+  border-radius: 30px;
+  font-weight: bold;
+  color : $color
+}
+
+@mixin btn-hover-mixin($text-color,$background-color) {
+  color:$text-color;
+  background-color: $background-color;
+}
+
+.btn-orange {
+  @include btn-mixin($orange-color);
+}
+.btn-orange:hover {
+  @include btn-hover-mixin(white,$orange-color);
+}
+
+.btn-blue {
+  @include btn-mixin($blue-color);
+}
+.btn-blue:hover {
+  @include btn-hover-mixin(white,$blue-color);
+}
+
+.btn-white {
+  @include btn-mixin(white);
+}
+.btn-white:hover {
+  @include btn-hover-mixin(rgba(0, 0, 0, 0.7),white);
+}
+
+
+
