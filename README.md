@@ -6,6 +6,7 @@ YoruTracer est une plate-forme de traçabilité des produits agroalimentaires ba
 * composer
 * Créer le fichier .env à partir du fichier .env.example
 * Créer un domaine virtuel sur votre machine (par exemple www.yorutracer.com) et assurer vous qu'il correspond au domaine dans le fichier .env
+* Installer la couche de blockchains du projet se trouvant sur le dépot https://github.com/medric49/yorublockchains et installer ce projet en suivant son procéssus d'installation
 
 ## Commande d'initialisation
     > composer install
