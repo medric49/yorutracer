@@ -17,9 +17,6 @@ class CreateModelsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('productor_id')->unsigned();
-            $table->string('unit');
-            $table->string('description',600);
-            $table->string('image');
         });
     }
 

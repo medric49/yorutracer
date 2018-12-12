@@ -15,9 +15,8 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('transformation_id')->unsigned();
             $table->timestamps();
-            $table->enum('type',['PRODUCT','TRANSFORMATION']);
-            $table->string('file_name');
         });
     }
 

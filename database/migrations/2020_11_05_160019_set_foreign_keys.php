@@ -43,6 +43,9 @@ class SetForeignKeys extends Migration
             $table->foreign('productor_id')->references('id')
                 ->on('productors');
 
+            $table->foreign('prev_transformation_id')->references('id')
+                ->on('transformations');
+
             $table->foreign('model_id')->references('id')
                 ->on('models');
         });
@@ -54,18 +57,10 @@ class SetForeignKeys extends Migration
                 ->on('products');
         });
 
-        Schema::table('model_images',function (Blueprint $table) {
-            $table->foreign('model_id')->references('id')
-                ->on('models');
-            $table->foreign('image_id')->references('id')
-                ->on('images');
-        });
 
-        Schema::table('transformation_images',function (Blueprint $table) {
+        Schema::table('images',function (Blueprint $table) {
             $table->foreign('transformation_id')->references('id')
                 ->on('transformations');
-            $table->foreign('image_id')->references('id')
-                ->on('images');
         });
     }
 
@@ -95,6 +90,7 @@ class SetForeignKeys extends Migration
 
         Schema::table('transformations',function (Blueprint $table) {
             $table->dropForeign('transformations_productor_id_foreign');
+            $table->dropForeign('transformations_prev_transformation_id_foreign');
             $table->dropForeign('transformations_model_id_foreign');
         });
 
@@ -103,14 +99,8 @@ class SetForeignKeys extends Migration
             $table->dropForeign('product_transformation_transformation_id_foreign');
         });
 
-        Schema::table('model_images',function (Blueprint $table) {
-            $table->dropForeign('model_images_model_id_foreign');
-            $table->dropForeign('model_images_image_id_foreign');
-        });
-
-        Schema::table('transformation_images',function (Blueprint $table) {
-            $table->dropForeign('transformation_images_transformation_id_foreign');
-            $table->dropForeign('transformation_images_image_id_foreign');
+        Schema::table('images',function (Blueprint $table) {
+            $table->dropForeign('images_transformation_id_foreign');
         });
     }
 }

@@ -107,18 +107,22 @@
                             Vous avez {{$nb}} model(s) de produits actif(s).
                         </h3>
                         @foreach($models as $model)
+
+                            @php
+                            $transformation = $model->first_transformation
+                            @endphp
                             <div class="col-md-4 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="container-fluid">
                                         <div class="row h-100 align-items-center">
-                                            <p class="mt-2 col-12 text-center">{{$model->description}}</p>
+                                            <p class="mt-2 col-12 text-center">{{$transformation->description}}</p>
                                         </div>
                                     </div>
-                                    <img src="{{\App\Managers\FileManager::loadImage($model->image,config('yorutracer.product_image_folder'),'512')}}" alt="{{$model->name}}" class="card-img-top">
+                                    <img src="{{\App\Managers\FileManager::loadImage($transformation->image,config('yorutracer.transformation_image_folder'),'512')}}" alt="{{$model->name}}" class="card-img-top">
                                     <div class="card-body">
                                         <h4 class="card-title text-center"><a href="{{route('productor.model',$model->id)}}" class="link-orange">{{$model->name}}</a></h4>
                                     </div>
-                                    <a href="{{route('productor.model',$model->id)}}" class="btn btn-add-product">{{count($model->products()->get() )}}</a>
+                                    <span class="btn btn-add-product">{{count($model->products()->get())}}</span>
                                 </div>
                             </div>
                         @endforeach

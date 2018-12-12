@@ -17,9 +17,12 @@ class CreateTransformationsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('description',600);
-            $table->integer('model_id')->unsigned();
+            $table->integer('prev_transformation_id')->unsigned()->nullable();
+            $table->enum('type',['INITIAL','INTERMEDIATE','FINAL']);
             $table->string('image');
+            $table->integer('model_id')->unsigned();
             $table->integer('productor_id')->unsigned();
+            $table->string('unit');
         });
     }
 

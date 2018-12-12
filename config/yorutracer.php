@@ -8,6 +8,5 @@
 
 return [
     'user_logo_folder' => '/uploads/image/user/',
-    'product_image_folder' => '/uploads/image/product/',
     'transformation_image_folder' => '/uploads/image/transformation/'
 ];

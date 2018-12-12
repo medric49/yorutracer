@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->enum('type',['PRODUCTOR','DISTRIBUTOR']);
             $table->double('longitude')->nullable();
             $table->double('latitude')->nullable();
+            $table->string('public_key')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

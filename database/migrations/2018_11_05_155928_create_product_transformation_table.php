@@ -17,6 +17,7 @@ class CreateProductTransformationTable extends Migration
             $table->increments('id');
             $table->integer('transformation_id')->unsigned();
             $table->integer('product_id')->unsigned();
+            $table->double('quantity');
             $table->timestamps();
         });
     }

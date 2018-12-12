@@ -6,7 +6,7 @@ use App\Http\Requests\Productor\NewModelRequest;
 use App\Managers\FileManager;
 use App\Model\Image;
 use App\Model\Model;
-use App\Model\ModelImage;
+use App\Model\Transformation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -33,51 +33,44 @@ class ProductController extends Controller
     }
 
     public function storeNewModel(NewModelRequest $request) {
-        $image = FileManager::storeImage($request->image,config('yorutracer.product_image_folder'));
-        $image_1 = FileManager::storeImage($request->image_1,config('yorutracer.product_image_folder'));
-        $image_2 = FileManager::storeImage($request->image_2,config('yorutracer.product_image_folder'));
-        $image_3 = FileManager::storeImage($request->image_3,config('yorutracer.product_image_folder'));
-
-        $image_file_1 = Image::create([
-            'file_name' => $image_1,
-            'type' => 'PRODUCT'
-        ]);
-
-        $image_file_2 = Image::create([
-            'file_name' => $image_2,
-            'type' => 'PRODUCT'
-        ]);
-
-        $image_file_3 = Image::create([
-            'file_name' => $image_3,
-            'type' => 'PRODUCT'
-        ]);
+        $image = FileManager::storeImage($request->image,config('yorutracer.transformation_image_folder'));
+        $image_1 = FileManager::storeImage($request->image_1,config('yorutracer.transformation_image_folder'));
+        $image_2 = FileManager::storeImage($request->image_2,config('yorutracer.transformation_image_folder'));
+        $image_3 = FileManager::storeImage($request->image_3,config('yorutracer.transformation_image_folder'));
 
 
         $model = Model::create([
             'name' => $request->input('name'),
-            'image' => $image,
-            'description' => $request->input('description'),
-            'unit' => $request->input('unit'),
             'productor_id' => auth()->user()->productor->id,
         ]);
 
-        ModelImage::create([
-            'image_id' => $image_file_1->id,
-            'model_id' => $model->id
+        $t = Transformation::create([
+            'title' => $request->input('name'),
+            'description' => $request->input('description'),
+            'image' => $image,
+            'productor_id' => auth()->user()->productor->id,
+            'prev_transformation_id' => null,
+            'type' => 'INITIAL',
+            'model_id' => $model->id,
+            'unit' => $request->input('unit')
         ]);
 
-        ModelImage::create([
-            'image_id' => $image_file_2->id,
-            'model_id' => $model->id
+        Image::create([
+            'file_name' => $image_1,
+            'transformation_id' => $t->id
         ]);
 
-        ModelImage::create([
-            'image_id' => $image_file_3->id,
-            'model_id' => $model->id
+        Image::create([
+            'file_name' => $image_2,
+            'transformation_id' => $t->id
         ]);
 
-        return redirect()->route('productor.model');
+        Image::create([
+            'file_name' => $image_3,
+            'transformation_id' => $t->id
+        ]);
+
+        return redirect()->route('productor.model',['id'=> $model->id]);
     }
 
 }

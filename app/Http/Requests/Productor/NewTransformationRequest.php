@@ -27,7 +27,13 @@ class NewTransformationRequest extends FormRequest
             'title' => 'required|string',
             'model_id' => 'required|integer',
             'image' => 'required|image|max:2048',
-            'description' => 'required|string|max:600'
+            'description' => 'required|string|max:600',
+            'unit' => 'required|string',
+            'image_1' => 'required|image|max:2048',
+            'image_2' => 'required|image|max:2048',
+            'image_3' => 'required|image|max:2048',
+            'prev_transformation_id' => 'required|integer',
+            'type' => 'required|in:INTERMEDIATE|FINAL'
         ];
     }
 }
