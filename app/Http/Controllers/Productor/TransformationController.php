@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 class TransformationController extends Controller
 {
     public function index() {
-        $transformations = auth()->user()->productor->transformations()->orderBy('title','desc')->get();
+        $transformations = auth()->user()->productor->transformations()->where('type','!=','INITIAL' )->orderBy('title','desc')->get();
         return view('productor.transformations',compact('transformations'));
     }
 

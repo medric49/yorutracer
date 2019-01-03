@@ -33,7 +33,7 @@ class NewTransformationRequest extends FormRequest
             'image_2' => 'required|image|max:2048',
             'image_3' => 'required|image|max:2048',
             'prev_transformation_id' => 'required|integer',
-            'type' => 'required|in:INTERMEDIATE|FINAL'
+            'type' => 'required|in:INTERMEDIATE,FINAL'
         ];
     }
 }

@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Unité du produit</label>
+                            <label for="unit">Unité du produit</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-star"></i></span>

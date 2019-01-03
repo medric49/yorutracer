@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
 
     public function index() {
-        $transformations = \auth()->user()->productor->transformations()->orderBy('title','desc')->take(4)->get();
+        $transformations = \auth()->user()->productor->transformations()->where('type','!=','INITIAL')->orderBy('title','desc')->take(4)->get();
         return view('productor.home',compact('transformations'));
     }
 

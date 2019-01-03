@@ -28,6 +28,8 @@
 @include('components.productor.header')
 @yield('content')
 
+
+@include('components.productor.footer')
 @include("includes.scripts")
 <script>
     $.fn.doPost=function(success,error){
@@ -42,7 +44,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 url: $form.attr('action'),
-                datatType : 'json',
+                dataType : 'json',
                 type: $form.attr('method'),
                 data: formData,
                 cache: false,
@@ -61,6 +63,37 @@
             });
         })
     };
+
+    var alertBlockchainConnection = function(callback) {
+        $.ajax({
+            url: 'http://localhost:3001/',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Access-Control-Allow-Origin' : "*"
+            },
+            dataType: 'json',
+            type: 'get',
+
+            success : function (data) {
+                if (data.status !== 'yorublockchains')
+                    $('#blockchain-modal').modal('show');
+                else
+                    if (typeof( callback) === 'function')
+                        callback()
+
+            },
+            error : function () {
+                $('#blockchain-modal').modal('show');
+            }
+        })
+    }
+
+    $(function () {
+        alertBlockchainConnection();
+        $('#blockchain-modal').on('hidden.bs.modal', function (e) {
+            alertBlockchainConnection();
+        })
+    })
 
 </script>
 @yield('script')

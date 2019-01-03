@@ -10,7 +10,7 @@
 @include('components.guest.header')
 @yield('content')
 
-
+@include('components.guest.footer')
 @include("includes.scripts")
 @yield('script')
 </body>

@@ -34,6 +34,10 @@ Route::group(['middleware' => ['guest']],function () {
 
 // ================ ESPACE MEMBRE =========================
 Route::group(['middleware' => ['auth']],function () {
+    // ========================== ESPACE API =========================
+    Route::post('/api-produits','ApiController@products')->name('api.products');
+    Route::post('/api-save-public-key','ApiController@savePublicKey')->name('api.save_pk');
+
     // ========================== ESPACE PRODUCTEUR =========================
     Route::group(['middleware' => ['productor'],'prefix' => 'producteur','namespace' =>'Productor'],function () {
         Route::get('/accueil','HomeController@index')->name('productor.home');
@@ -49,6 +53,7 @@ Route::group(['middleware' => ['auth']],function () {
         Route::get('/nouveau-model','ProductController@newModelForm')->name('productor.new_model');
         Route::post('/nouveau-model','ProductController@storeNewModel');
         Route::get('/model/{id}','ProductController@model')->name('productor.model');
+        Route::post('/nouveau-produit','ProductController@storeProduct')->name('productor.store_product');
 
         Route::get('/transformations','TransformationController@index')->name('productor.transformations');
         Route::get('/transformation/{id}','TransformationController@transformation')->name('productor.transformation');

@@ -100,16 +100,15 @@
 
         <div class="row justify-content-center">
             <div class="col-md-8 col-12">
-                <div class="row">
+                <div class="row" id="app">
                     @if($nb > 0)
-
                         <h3 class="col-12 mb-3 text-muted text-center">
                             Vous avez {{$nb}} model(s) de produits actif(s).
                         </h3>
                         @foreach($models as $model)
 
                             @php
-                            $transformation = $model->first_transformation
+                            $transformation = $model->first_transformation()
                             @endphp
                             <div class="col-md-4 col-sm-6 col-12">
                                 <div class="card">
@@ -122,7 +121,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title text-center"><a href="{{route('productor.model',$model->id)}}" class="link-orange">{{$model->name}}</a></h4>
                                     </div>
-                                    <span class="btn btn-add-product">{{count($model->products()->get())}}</span>
+                                    <a href="{{route('productor.model',$model->id)}}" class="btn btn-add-product" v-text='qty["{{$model->id}}"]'></a>
                                 </div>
                             </div>
                         @endforeach
@@ -135,4 +134,73 @@
             </div>
         </div>
     </main>
+    <div class="d-none" id="model-id">
+        {{\App\Managers\DataManager::modelIdString()}}
+    </div>
 @endsection
+
+@section('script')
+    <script src="{{asset('js/vuejs/vue.min.js')}}"></script>
+    <script>
+        $(function () {
+            var vue = new Vue({
+                el : "#app",
+                data : {
+                    qty : JSON.parse( $('#model-id').text() )
+                },
+                mounted : function () {
+
+                    $.ajax({
+                        url: 'http://localhost:3001/products',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            'Access-Control-Allow-Origin' : "*"
+                        },
+                        dataType: 'json',
+                        type: 'get',
+
+                        success : function (data) {
+                            var ids = data.ids
+
+                            $.ajax({
+                                url: '{{route('api.products')}}',
+
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                    'Access-Control-Allow-Origin' : "*"
+                                },
+
+                                dataType: 'json',
+                                type: 'post',
+
+                                data :{"data" :JSON.stringify({ids : ids})},
+
+                                success : function (data) {
+                                    for (var i=0; i<data.res.length; i++ ) {
+
+                                        for ( var v in vue.qty ) {
+                                            if (v == data.res[i].model_id)
+                                                vue.qty[v]++;
+                                        }
+                                    }
+                                    vue.products = vue.products.concat(data.res)
+                                },
+
+                                error : function () {
+                                    alert()
+                                }
+
+                            })
+
+                        },
+                        error : function () {
+                            $('#blockchain-modal').modal('show');
+                        }
+                    })
+
+                }
+            })
+
+        })
+    </script>
+    @endsection

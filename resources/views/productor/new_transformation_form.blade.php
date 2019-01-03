@@ -13,7 +13,7 @@
                     <form class="row" action="{{route('productor.new_transformation')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="col-12">
-                            <legend class="text-orange">Presentation de la transformation</legend>
+                            <legend class="text-orange">Présentation de la transformation</legend>
                             <hr>
 
                             <div class="form-group">
@@ -73,7 +73,7 @@
                                         <span class="input-group-text"><i class="fas fa-link"></i></span>
                                     </div>
                                     <select class="form-control" name="prev_transformation_id" id="prev_transformation_id">
-                                        @foreach($prev_transformations as $transformation)
+                                        @foreach($transformations as $transformation)
                                             <option value="{{$transformation->id}}" {{old('prev_transformation_id')==$transformation->id?'selected':''}}>{{$transformation->title}}</option>
                                         @endforeach
                                     </select>
@@ -85,14 +85,10 @@
 
                             <div class="form-group">
                                 <label>Type de transformation</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                                    </div>
-                                    <input type="radio" value="INTERMEDIATE" class="form-control" name="type"> Intermediaire
-                                    <br>
-                                    <input type="radio" value="FINAL" class="form-control" name="type"> Finale
-                                </div>
+                                <br>
+                                <input type="radio" value="INTERMEDIATE" name="type"> Intermediaire
+                                <br>
+                                <input type="radio" value="FINAL" name="type"> Finale
                                 @if($errors->has('type'))
                                     <span class="oblig">{{$errors->first('type')}}</span>
                                 @endif
